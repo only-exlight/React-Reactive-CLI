@@ -1,0 +1,29 @@
+import * as React from 'react';
+import { InjectServices } from 'react-reactive/@core';
+
+interface I{{component-name}}ComponentState { };
+
+interface I{{component-name}}ComponentProps { };
+
+@InjectServices({
+    target: {{component-name}}Component,
+    services: []
+})
+
+export class {{component-name}}Component extends React.Component<IHeadComponentProps> {
+    public state: IHeadComponentState;
+    constructor(props: any) {
+        super(props);
+        this.state = { };
+    }
+
+    public componentDidMount() { }
+
+    public componentWillUnmount() { }
+
+    public render() {
+        return (
+            <div>{{component-name}} component</div>
+        );
+    }
+}

@@ -1,0 +1,12 @@
+import { Injector } from 'react-reactive/@core';
+
+@Injector({
+    target: {{service-name}}Serrvice,
+    services: []
+})
+
+export class {{service-name}}Serrvice {
+
+    constructor () { }
+
+}
