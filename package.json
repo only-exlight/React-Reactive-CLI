@@ -1,0 +1,35 @@
+{
+  "name": "react-reactive-cli",
+  "version": "0.0.1",
+  "description": "CLI for React-Reactive framework",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently --kill-others \"tsc -w\" \"nodemon build/index.js\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snowstroom/React-Reactive-CLI.git"
+  },
+  "keywords": [
+    "React",
+    "CLI",
+    "RxJS",
+    "React-Reactive"
+  ],
+  "author": "eXlight",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/snowstroom/React-Reactive-CLI/issues"
+  },
+  "homepage": "https://github.com/snowstroom/React-Reactive-CLI#readme",
+  "devDependencies": {
+    "concurrently": "^4.0.1",
+    "nodemon": "^1.18.5",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.4"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1"
+  }
+}

@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "sourceMap": true,
+        "outDir": "build",
+        "rootDir": "src",
+        "removeComments": true,
+        "experimentalDecorators": true,
+        "preserveConstEnums": true,
+    },
+    "allowSyntheticDefaultImports": true,
+    //указывает что включаться должны только файлы из папки /src
+    "include": [
+      "src/**/*"
+    ]
+}
