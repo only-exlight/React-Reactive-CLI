@@ -1,7 +1,3 @@
-import chalk from 'chalk';
-import { HELLO } from './const/messages';
-const log = console.log;
+import { CLI } from './classes/Cli.class';
 
-log(chalk.green(HELLO));
-log(process.argv);
-log(__dirname);
+new CLI().main();
