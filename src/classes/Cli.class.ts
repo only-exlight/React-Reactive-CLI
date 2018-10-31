@@ -22,6 +22,7 @@ export class CLI {
         switch (process.argv[2]) {
             case undefined: {
                 log(chalk.red(ERR_MESSAGES.HAVE_NO_ARGUMENT));
+                process.exit(1);
             }
             case KEYS.NEW_PROGECT: {
                 this.generateNewProject();
@@ -31,20 +32,61 @@ export class CLI {
                 this.generateNewProject();
                 break;
             }
+            case KEYS.GENERATE: {
+                this.generateEntity();
+                break;
+            }
+            case KEYS.GENERATE_SHORT: {
+                this.generateEntity();
+                break;
+            }
             default: {
                 log(ERR_MESSAGES.ARGUMENT_NO_CORRECT(process.argv[2]));
+                process.exit(1);
             }
         }
     }
 
-    private generateNewProject() {
+    private checkArgv3() {
         if (process.argv[3]) {
-            this.projectName = process.argv[3];
-            log(chalk.green(MESSAGES.GENERATE_PROJECT(this.projectName)));
-            const struct = PROJECT_STRUCT(this.projectName);
-            this.buildStruct(struct, './result'); // Убрать result
+            return process.argv[3];
         } else {
             log(chalk.red(ERR_MESSAGES.HAVE_NO_ARGUMENT));
+            process.exit(1);
+        }
+    }
+
+    private generateNewProject() {
+        const arg = this.checkArgv3();
+        this.projectName = arg;
+        log(chalk.green(MESSAGES.GENERATE_PROJECT(this.projectName)));
+        const struct = PROJECT_STRUCT(this.projectName);
+        this.buildStruct(struct, './result'); // Убрать result
+    }
+
+    private generateEntity() {
+        const arg = this.checkArgv3();
+        switch (arg) {
+            case undefined: {
+                log(chalk.red(ERR_MESSAGES.HAVE_NO_ARGUMENT));
+                process.exit(1);
+            }
+            case KEYS.COMPONENT: {
+                break;
+            }
+            case KEYS.COMPONENT_SHORT: {
+                break;
+            }
+            case KEYS.SERVICE: {
+                break;
+            }
+            case KEYS.SERVICE_SHORT: {
+                break;
+            }
+            default: {
+                log(ERR_MESSAGES.ARGUMENT_NO_CORRECT(process.argv[2]));
+                process.exit(1);
+            }
         }
     }
 
