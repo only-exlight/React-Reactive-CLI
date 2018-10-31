@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently --kill-others \"tsc -w\" \"nodemon build/index.js\"",
+    "start-new": "concurrently --kill-others \"tsc -w\" \"nodemon build/index.js -new MyProject\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

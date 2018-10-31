@@ -2,135 +2,137 @@ import { FoolderDescription } from '../interfaces';
 import { FsTypes } from '../enums';
 import * as TEMPLATES from '../resources';
 
-export const PROJECT_STRUCT: FoolderDescription = {
-    name: '',
-    type: FsTypes.FOOLDER,
-    content: [{
-        name: 'src',
+export const PROJECT_STRUCT = (name: string): FoolderDescription => {
+    return {
+        name: name,
         type: FsTypes.FOOLDER,
         content: [{
-            name: 'app',
+            name: 'src',
             type: FsTypes.FOOLDER,
             content: [{
-                name: 'components',
+                name: 'app',
                 type: FsTypes.FOOLDER,
                 content: [{
-                    name: 'test',
+                    name: 'components',
                     type: FsTypes.FOOLDER,
                     content: [{
-                        name: 'test.component',
-                        ext: 'tsx',
-                        template: TEMPLATES.COMPONENT('test'),
-                        type: FsTypes.FILE
-                    }, {
-                        name: 'test.component',
-                        ext: 'scss',
-                        template: TEMPLATES.EMPTY(),
+                        name: 'test',
+                        type: FsTypes.FOOLDER,
+                        content: [{
+                            name: 'test.component',
+                            ext: 'tsx',
+                            template: TEMPLATES.COMPONENT('test'),
+                            type: FsTypes.FILE
+                        }, {
+                            name: 'test.component',
+                            ext: 'scss',
+                            template: TEMPLATES.EMPTY(),
+                            type: FsTypes.FILE
+                        }]
+                    }]
+                }, {
+                    name: 'services',
+                    type: FsTypes.FOOLDER,
+                    content: [{
+                        name: 'test.service',
+                        ext: 'ts',
+                        template: TEMPLATES.SERVICE('test'),
                         type: FsTypes.FILE
                     }]
-                }]
-            }, {
-                name: 'services',
-                type: FsTypes.FOOLDER,
-                content: [{
-                    name: 'test.service',
+                }, {
+                    name: 'app.component',
+                    ext: 'scss',
+                    template: TEMPLATES.EMPTY(),
+                    type: FsTypes.FILE
+                }, {
+                    name: 'app.component',
+                    ext: 'tsx',
+                    template: TEMPLATES.APP_COMPONENT(),
+                    type: FsTypes.FILE
+                }, {
+                    name: 'app.config',
                     ext: 'ts',
-                    template: TEMPLATES.SERVICE('test'),
+                    template: TEMPLATES.TSCONFIG(),
+                    type: FsTypes.FILE
+                }, {
+                    name: 'routing.config',
+                    ext: 'ts',
+                    template: TEMPLATES.ROUTING(),
                     type: FsTypes.FILE
                 }]
             }, {
-                name: 'app.component',
-                ext: 'scss',
-                template: TEMPLATES.EMPTY(),
-                type: FsTypes.FILE
+                name: 'env',
+                type: FsTypes.FOOLDER,
+                content: [{
+                    name: 'env.const',
+                    ext: 'ts',
+                    template: TEMPLATES.EMPTY(),
+                    type: FsTypes.FILE
+                }]
             }, {
-                name: 'app.component',
-                ext: 'tsx',
-                template: TEMPLATES.APP_COMPONENT(),
-                type: FsTypes.FILE
-            }, {
-                name: 'app.config',
-                ext: 'ts',
-                template: TEMPLATES.TSCONFIG(),
-                type: FsTypes.FILE
-            }, {
-                name: 'routing.config',
-                ext: 'ts',
-                template: TEMPLATES.ROUTING(),
-                type: FsTypes.FILE
-            }]
-        }, {
-            name: 'env',
-            type: FsTypes.FOOLDER,
-            content: [{
-                name: 'env.const',
-                ext: 'ts',
-                template: TEMPLATES.EMPTY(),
-                type: FsTypes.FILE
-            }]
-        }, {
-            name: 'styles',
-            type: FsTypes.FOOLDER,
-            content: [{
                 name: 'styles',
-                ext: 'scss',
-                template: TEMPLATES.EMPTY(),
+                type: FsTypes.FOOLDER,
+                content: [{
+                    name: 'styles',
+                    ext: 'scss',
+                    template: TEMPLATES.EMPTY(),
+                    type: FsTypes.FILE
+                }]
+            }, {
+                name: 'favicon',
+                ext: 'ico',
+                template: null,
+                type: FsTypes.FILE
+            }, {
+                name: 'index',
+                ext: 'html',
+                template: TEMPLATES.HTML(name), //Передавать имя проекта из аргументов
+                type: FsTypes.FILE
+            }, {
+                name: 'index',
+                ext: 'ts',
+                template: TEMPLATES.ENTER_POINT(),
                 type: FsTypes.FILE
             }]
         }, {
-            name: 'favicon',
-            ext: 'ico',
-            template: null,
-            type: FsTypes.FILE
+            name: 'webpack',
+            type: FsTypes.FOOLDER,
+            content: [{
+                name: 'webpack.const',
+                ext: 'js',
+                template: TEMPLATES.WEBPACK_CONST(),
+                type: FsTypes.FILE
+            }, {
+                name: 'webpack.modes',
+                ext: 'js',
+                template: TEMPLATES.WEBPACK_MODES(),
+                type: FsTypes.FILE
+            }, {
+                name: 'webpack.plugins',
+                ext: 'js',
+                template: TEMPLATES.WEBPACK_PLUGINS(),
+                type: FsTypes.FILE
+            }]
         }, {
-            name: 'index',
-            ext: 'html',
-            template: TEMPLATES.HTML('test'), //Передавать имя проекта из аргументов
-            type: FsTypes.FILE
+            name: 'package',
+            type: FsTypes.FILE,
+            ext: 'json',
+            template: TEMPLATES.PACKAGE(name), //Передавать имя проекта из аргументов
         }, {
-            name: 'index',
-            ext: 'ts',
-            template: TEMPLATES.ENTER_POINT(),
-            type: FsTypes.FILE
+            name: 'tsconfig',
+            type: FsTypes.FILE,
+            ext: 'json',
+            template: TEMPLATES.TSCONFIG(),
+        }, {
+            name: 'tslint',
+            type: FsTypes.FILE,
+            ext: 'json',
+            template: TEMPLATES.TSLINT(),
+        }, {
+            name: 'webpack',
+            type: FsTypes.FILE,
+            ext: 'js',
+            template: TEMPLATES.WEBPACK_CONFIG(),
         }]
-    }, {
-        name: 'webpack',
-        type: FsTypes.FOOLDER,
-        content: [{
-            name: 'webpack.const',
-            ext: 'js',
-            template: TEMPLATES.WEBPACK_CONST(),
-            type: FsTypes.FILE
-        }, {
-            name: 'webpack.modes',
-            ext: 'js',
-            template: TEMPLATES.WEBPACK_MODES(),
-            type: FsTypes.FILE
-        }, {
-            name: 'webpack.plugins',
-            ext: 'js',
-            template: TEMPLATES.WEBPACK_PLUGINS(),
-            type: FsTypes.FILE
-        }]
-    }, {
-        name: 'package',
-        type: FsTypes.FILE,
-        ext: 'json',
-        template: TEMPLATES.PACKAGE('test'), //Передавать имя проекта из аргументов
-    }, {
-        name: 'tsconfig',
-        type: FsTypes.FILE,
-        ext: 'json',
-        template: TEMPLATES.TSCONFIG(),
-    }, {
-        name: 'tslint',
-        type: FsTypes.FILE,
-        ext: 'json',
-        template: TEMPLATES.TSLINT(),
-    }, {
-        name: 'webpack',
-        type: FsTypes.FILE,
-        ext: 'js',
-        template: TEMPLATES.WEBPACK_CONFIG(),
-    }]
-}
+    }
+};
