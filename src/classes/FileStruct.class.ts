@@ -19,18 +19,19 @@ export class FileStruct implements FileDescription {
             case Entity.COMPONENT: {
                 this.ext = EXT.TSX;
                 this.template = COMPONENT(name);
-                this.path = `./MyProject/src/app/components`;
+                this.path = `./result/MyProject/src/app/components`;
                 this.createFoolder();
                 break;
             }
             case Entity.SERVICE: {
                 this.ext = EXT.TS;
                 this.template = SERVICE(name);
-                this.path =  `./MyProject/src/app/services`;
+                this.path =  `./result/MyProject/src/app/services`;
                 this.createFoolder();
                 break;
             }
         }
+        this.updateConfig();
     }
 
     private createFoolder() {
@@ -53,8 +54,8 @@ export class FileStruct implements FileDescription {
     }
 
     private updateConfig() {
-        if (fs.existsSync('./src/app/app.config.ts')) {
-            const configFile = fs.readFileSync('./src/app/app.config.ts', 'UTF-8');
+        if (fs.existsSync('./result/MyProject/src/app/app.config.ts')) {
+            const configFile = fs.readFileSync('./result/MyProject/src/app/app.config.ts', 'UTF-8');
             const parser = new TypescriptParser();
             parser.parseSource(configFile).then(source => console.log(source));
         }

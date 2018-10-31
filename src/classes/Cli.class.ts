@@ -102,6 +102,7 @@ export class CLI {
     }
 
     private buildStruct(struct, dirPath) {
+        console.log(struct, dirPath);
         const newPath = `${dirPath}/${struct.name}`;
         try {
             fs.mkdirSync(newPath);
