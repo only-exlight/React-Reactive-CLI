@@ -11,14 +11,12 @@ const log = console.log;
 
 export class CLI {
     public main() {
-        // this.argParse();
+        this.argParse();
         log(chalk.green(MESSAGES.HELLO));
-        log(process.argv);
-        log(__dirname);
     }
 
     private argParse() {
-        switch (process.argv[1]) {
+        switch (process.argv[2]) {
             case KEYS.NEW_PROGECT: {
                 this.generateNewProject();
             };
@@ -29,28 +27,33 @@ export class CLI {
     }
 
     private generateNewProject() {
-        if (process.argv[2]) {
-            const name = process.argv[2];
-            this.buildStruct(PROJECT_STRUCT(name))
+        if (process.argv[3]) {
+            const name = process.argv[3];
+            const struct = PROJECT_STRUCT(name);
+            this.buildStruct(struct, './result'); //
         }
     }
 
-    private buildStruct(struct) {
-        fs.mkdirSync(path.join('/result', struct.name));
+    private buildStruct(struct, dirPath) {
+        const newPath = `${dirPath}/${struct.name}`;
+        fs.mkdirSync(newPath);
         struct.content.forEach(childStruct => {
             switch (childStruct.type) {
                 case FsTypes.FOOLDER: {
-                    this.buildStruct(childStruct);
+                    this.buildStruct(childStruct, newPath);
+                    break;
                 };
                 case FsTypes.FILE: {
-                    this.generateFile(childStruct);
+                    this.generateFile(childStruct, newPath);
+                    break;
                 }
             }
         });
     }
 
-    private generateFile(fileDscr: FileDescription) {
+    private generateFile(fileDscr: FileDescription, currentPath: string) {
         const { ext, name, template } = fileDscr;
-        fs.writeFileSync(`./result/${name}.${ext}`, template);
+        const filePath = path.join(currentPath, `${name}.${ext}`);
+        fs.writeFileSync(filePath, template);
     }
 }

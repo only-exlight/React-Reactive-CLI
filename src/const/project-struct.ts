@@ -86,7 +86,7 @@ export const PROJECT_STRUCT = (name: string): FoolderDescription => {
             }, {
                 name: 'index',
                 ext: 'html',
-                template: TEMPLATES.HTML(name), //Передавать имя проекта из аргументов
+                template: TEMPLATES.HTML(name),
                 type: FsTypes.FILE
             }, {
                 name: 'index',
@@ -117,7 +117,7 @@ export const PROJECT_STRUCT = (name: string): FoolderDescription => {
             name: 'package',
             type: FsTypes.FILE,
             ext: 'json',
-            template: TEMPLATES.PACKAGE(name), //Передавать имя проекта из аргументов
+            template: TEMPLATES.PACKAGE(name),
         }, {
             name: 'tsconfig',
             type: FsTypes.FILE,
@@ -129,7 +129,7 @@ export const PROJECT_STRUCT = (name: string): FoolderDescription => {
             ext: 'json',
             template: TEMPLATES.TSLINT(),
         }, {
-            name: 'webpack',
+            name: 'webpack.config',
             type: FsTypes.FILE,
             ext: 'js',
             template: TEMPLATES.WEBPACK_CONFIG(),
