@@ -6,6 +6,8 @@
   "scripts": {
     "start": "concurrently --kill-others \"tsc -w\" \"nodemon build/index.js\"",
     "start-new": "concurrently --kill-others \"tsc -w\" \"nodemon build/index.js -new MyProject\"",
+    "start-create-c": "concurrently --kill-others \"tsc -w\" \"nodemon build/index.js -g c component\"",
+    "start-create-s": "concurrently --kill-others \"tsc -w\" \"nodemon build/index.js -g s service\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

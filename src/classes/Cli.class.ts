@@ -5,8 +5,9 @@ import * as ERR_MESSAGES from '../const/err-messages';
 import * as KEYS from '../const/keys';
 import chalk from 'chalk';
 import { PROJECT_STRUCT } from '../const/project-struct';
-import { FsTypes } from '../enums';
+import { FsTypes, Entity } from '../enums';
 import { FileDescription } from '../interfaces';
+import { FileStruct } from './FileStruct.class';
 
 const log = console.log;
 
@@ -47,9 +48,9 @@ export class CLI {
         }
     }
 
-    private checkArgv3() {
-        if (process.argv[3]) {
-            return process.argv[3];
+    private checkArgv(index: number) {
+        if (process.argv[index]) {
+            return process.argv[index];
         } else {
             log(chalk.red(ERR_MESSAGES.HAVE_NO_ARGUMENT));
             process.exit(1);
@@ -57,7 +58,7 @@ export class CLI {
     }
 
     private generateNewProject() {
-        const arg = this.checkArgv3();
+        const arg = this.checkArgv(3);
         this.projectName = arg;
         log(chalk.green(MESSAGES.GENERATE_PROJECT(this.projectName)));
         const struct = PROJECT_STRUCT(this.projectName);
@@ -65,29 +66,39 @@ export class CLI {
     }
 
     private generateEntity() {
-        const arg = this.checkArgv3();
+        const arg = this.checkArgv(3);
         switch (arg) {
             case undefined: {
                 log(chalk.red(ERR_MESSAGES.HAVE_NO_ARGUMENT));
                 process.exit(1);
             }
             case KEYS.COMPONENT: {
+                this.createStruct();
                 break;
             }
             case KEYS.COMPONENT_SHORT: {
+                this.createStruct();
                 break;
             }
             case KEYS.SERVICE: {
+                this.createStruct();
                 break;
             }
             case KEYS.SERVICE_SHORT: {
+                this.createStruct();
                 break;
             }
             default: {
-                log(ERR_MESSAGES.ARGUMENT_NO_CORRECT(process.argv[2]));
+                log(ERR_MESSAGES.ARGUMENT_NO_CORRECT(process.argv[3]));
                 process.exit(1);
             }
         }
+    }
+
+    private createStruct() {
+        const arg = this.checkArgv(4);
+        const struct = new FileStruct(Entity.COMPONENT, arg);
+        this.buildStruct(struct, struct.filePath);
     }
 
     private buildStruct(struct, dirPath) {
