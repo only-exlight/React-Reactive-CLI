@@ -1,3 +1,4 @@
+export const WEBPACK_CONFIG = () => `
 const rmrf = require('rimraf');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -73,3 +74,4 @@ module.exports = (env, argv) => {
         }
     };
 };
+`;

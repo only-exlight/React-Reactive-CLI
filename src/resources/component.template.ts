@@ -1,16 +1,17 @@
+export const COMPONENT = componentName => `
 import * as React from 'react';
 import { InjectServices } from 'react-reactive/@core';
 
-interface I{{component-name}}ComponentState { };
+interface I${componentName}ComponentState { };
 
-interface I{{component-name}}ComponentProps { };
+interface I${componentName}ComponentProps { };
 
 @InjectServices({
-    target: {{component-name}}Component,
+    target: ${componentName}Component,
     services: []
 })
 
-export class {{component-name}}Component extends React.Component<IHeadComponentProps> {
+export class ${componentName}Component extends React.Component<IHeadComponentProps> {
     public state: IHeadComponentState;
     constructor(props: any) {
         super(props);
@@ -23,7 +24,8 @@ export class {{component-name}}Component extends React.Component<IHeadComponentP
 
     public render() {
         return (
-            <div>{{component-name}} component</div>
+            <div>${componentName} component</div>
         );
     }
 }
+`;

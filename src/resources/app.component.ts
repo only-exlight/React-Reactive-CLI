@@ -1,3 +1,4 @@
+export const APP_COMPONENT = () => `
 import * as React from 'react';
 import { RouterOutlet, IRoutingConfig } from '../../lib/@routing';
 
@@ -17,3 +18,4 @@ export class AppComponent extends React.Component<IAppComponent> {
         );
     }
 }
+`;

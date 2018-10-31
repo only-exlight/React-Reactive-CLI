@@ -1,5 +1,5 @@
-{
-  "name": "{{package-name}}",
+export const PACKAGE = packageName => `{
+  "name": "${packageName}",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -34,3 +34,4 @@
     "webpack-dev-server": "^3.1.9"
   }
 }
+`;

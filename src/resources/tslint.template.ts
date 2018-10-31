@@ -1,4 +1,4 @@
-{
+export const TSLINT = () => `{
     "rules": {
         "max-line-length": {
             "options": [120]
@@ -26,4 +26,4 @@
             "options": [120]
         }
     }
-}
+}`;

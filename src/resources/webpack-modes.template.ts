@@ -1,3 +1,4 @@
+export const WEBPACK_MODES = () => `
 const DEVELOPMENT = require('./webpack.const').DEVELOPMENT;
 const PRODUCTION = require('./webpack.const').PRODUCTION;
 
@@ -16,3 +17,4 @@ const chooseMode = mode => {
 };
 
 module.exports = chooseMode;
+`;

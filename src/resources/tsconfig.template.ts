@@ -1,4 +1,4 @@
-{
+export const TSCONFIG = () => `{
     "compilerOptions": {
         "target": "es6",
         "module": "commonjs",
@@ -22,4 +22,4 @@
     "exclude": [
         "**/*.spec.ts"
     ]
-}
+}`;
