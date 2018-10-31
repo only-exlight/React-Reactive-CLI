@@ -1,4 +1,4 @@
-export const SERVICE = serviceName => `
+export const SERVICE = (serviceName: string) => `
 import { Injector } from 'react-reactive/@core';
 
 @Injector({

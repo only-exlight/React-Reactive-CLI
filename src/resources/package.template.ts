@@ -1,4 +1,4 @@
-export const PACKAGE = packageName => `{
+export const PACKAGE = (packageName:string) => `{
   "name": "${packageName}",
   "version": "0.0.1",
   "description": "",

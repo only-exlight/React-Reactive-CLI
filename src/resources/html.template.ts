@@ -1,4 +1,4 @@
-export const HTML = name => `
+export const HTML = (name: string) => `
 <!DOCTYPE html>
 <html lang="en">
 

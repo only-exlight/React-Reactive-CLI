@@ -1,4 +1,4 @@
-export const COMPONENT = componentName => `
+export const COMPONENT = (componentName: string) => `
 import * as React from 'react';
 import { InjectServices } from 'react-reactive/@core';
 

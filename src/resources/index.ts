@@ -1,0 +1,15 @@
+export { APP_COMPONENT } from './app-component.template';
+export { APP } from './app.template';
+export { COMPONENT } from './component.template';
+export { EMPTY } from './empty.template';
+export { ENTER_POINT } from './enter-point.template';
+export { HTML } from './html.template';
+export { PACKAGE } from './package.template';
+export { ROUTING } from './routing.template';
+export { SERVICE } from './service.template';
+export { TSCONFIG } from './tsconfig.template';
+export { TSLINT } from './tslint.template';
+export { WEBPACK_CONFIG } from './webpack-config.template';
+export { WEBPACK_CONST } from './webpack-const.template';
+export { WEBPACK_MODES } from './webpack-modes.template';
+export { WEBPACK_PLUGINS } from './webpack-plugins.template';

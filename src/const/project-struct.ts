@@ -1,5 +1,6 @@
 import { FoolderDescription } from '../interfaces';
 import { FsTypes } from '../enums';
+import * as TEMPLATES from '../resources';
 
 export const PROJECT_STRUCT: FoolderDescription = {
     name: '',
@@ -19,12 +20,12 @@ export const PROJECT_STRUCT: FoolderDescription = {
                     content: [{
                         name: 'test.component',
                         ext: 'tsx',
-                        template: null,
+                        template: TEMPLATES.COMPONENT('test'),
                         type: FsTypes.FILE
                     }, {
                         name: 'test.component',
                         ext: 'scss',
-                        template: null,
+                        template: TEMPLATES.EMPTY(),
                         type: FsTypes.FILE
                     }]
                 }]
@@ -34,28 +35,28 @@ export const PROJECT_STRUCT: FoolderDescription = {
                 content: [{
                     name: 'test.service',
                     ext: 'ts',
-                    template: null,
+                    template: TEMPLATES.SERVICE('test'),
                     type: FsTypes.FILE
                 }]
             }, {
                 name: 'app.component',
                 ext: 'scss',
-                template: null,
+                template: TEMPLATES.EMPTY(),
                 type: FsTypes.FILE
             }, {
                 name: 'app.component',
                 ext: 'tsx',
-                template: null,
+                template: TEMPLATES.APP_COMPONENT(),
                 type: FsTypes.FILE
             }, {
                 name: 'app.config',
                 ext: 'ts',
-                template: null,
+                template: TEMPLATES.TSCONFIG(),
                 type: FsTypes.FILE
             }, {
                 name: 'routing.config',
                 ext: 'ts',
-                content: null,
+                template: TEMPLATES.ROUTING(),
                 type: FsTypes.FILE
             }]
         }, {
@@ -64,7 +65,7 @@ export const PROJECT_STRUCT: FoolderDescription = {
             content: [{
                 name: 'env.const',
                 ext: 'ts',
-                template: null,
+                template: TEMPLATES.EMPTY(),
                 type: FsTypes.FILE
             }]
         }, {
@@ -73,7 +74,7 @@ export const PROJECT_STRUCT: FoolderDescription = {
             content: [{
                 name: 'styles',
                 ext: 'scss',
-                template: null,
+                template: TEMPLATES.EMPTY(),
                 type: FsTypes.FILE
             }]
         }, {
@@ -84,12 +85,12 @@ export const PROJECT_STRUCT: FoolderDescription = {
         }, {
             name: 'index',
             ext: 'html',
-            template: null,
+            template: TEMPLATES.HTML('test'), //Передавать имя проекта из аргументов
             type: FsTypes.FILE
         }, {
             name: 'index',
             ext: 'ts',
-            template: null,
+            template: TEMPLATES.ENTER_POINT(),
             type: FsTypes.FILE
         }]
     }, {
@@ -98,38 +99,38 @@ export const PROJECT_STRUCT: FoolderDescription = {
         content: [{
             name: 'webpack.const',
             ext: 'js',
-            template: null,
+            template: TEMPLATES.WEBPACK_CONST(),
             type: FsTypes.FILE
         }, {
             name: 'webpack.modes',
             ext: 'js',
-            template: null,
+            template: TEMPLATES.WEBPACK_MODES(),
             type: FsTypes.FILE
         }, {
             name: 'webpack.plugins',
             ext: 'js',
-            template: null,
+            template: TEMPLATES.WEBPACK_PLUGINS(),
             type: FsTypes.FILE
         }]
     }, {
         name: 'package',
         type: FsTypes.FILE,
         ext: 'json',
-        template: null,
+        template: TEMPLATES.PACKAGE('test'), //Передавать имя проекта из аргументов
     }, {
         name: 'tsconfig',
         type: FsTypes.FILE,
         ext: 'json',
-        template: null,
+        template: TEMPLATES.TSCONFIG(),
     }, {
         name: 'tslint',
         type: FsTypes.FILE,
         ext: 'json',
-        template: null,
+        template: TEMPLATES.TSLINT(),
     }, {
         name: 'webpack',
         type: FsTypes.FILE,
         ext: 'js',
-        template: '',
+        template: TEMPLATES.WEBPACK_CONFIG(),
     }]
 }
