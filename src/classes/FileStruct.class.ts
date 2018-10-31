@@ -1,6 +1,7 @@
 import { FileDescription } from '../interfaces/index';
 import { FsTypes, Entity } from '../enums';
 import { SERVICE, COMPONENT } from '../resources';
+import { TypescriptParser } from 'typescript-parser';
 import * as EXT from '../const/ext';
 import * as fs from 'fs';
 
@@ -18,14 +19,14 @@ export class FileStruct implements FileDescription {
             case Entity.COMPONENT: {
                 this.ext = EXT.TSX;
                 this.template = COMPONENT(name);
-                this.path = `./src/app/components`;
+                this.path = `./MyProject/src/app/components`;
                 this.createFoolder();
                 break;
             }
             case Entity.SERVICE: {
                 this.ext = EXT.TS;
                 this.template = SERVICE(name);
-                this.path =  `./src/app/services`;
+                this.path =  `./MyProject/src/app/services`;
                 this.createFoolder();
                 break;
             }
@@ -49,7 +50,14 @@ export class FileStruct implements FileDescription {
                 console.log(e);
             }
         }
-        
+    }
+
+    private updateConfig() {
+        if (fs.existsSync('./src/app/app.config.ts')) {
+            const configFile = fs.readFileSync('./src/app/app.config.ts', 'UTF-8');
+            const parser = new TypescriptParser();
+            parser.parseSource(configFile).then(source => console.log(source));
+        }
     }
 
 }
