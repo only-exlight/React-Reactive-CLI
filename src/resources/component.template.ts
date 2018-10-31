@@ -11,8 +11,8 @@ interface I${componentName}ComponentProps { };
     services: []
 })
 
-export class ${componentName}Component extends React.Component<IHeadComponentProps> {
-    public state: IHeadComponentState;
+export class ${componentName}Component extends React.Component<I${componentName}ComponentProps> {
+    public state: I${componentName}ComponentState;
     constructor(props: any) {
         super(props);
         this.state = { };

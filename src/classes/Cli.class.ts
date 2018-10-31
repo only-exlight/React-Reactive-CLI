@@ -6,7 +6,7 @@ import * as KEYS from '../const/keys';
 import chalk from 'chalk';
 import { PROJECT_STRUCT } from '../const/project-struct';
 import { FsTypes, Entity } from '../enums';
-import { FileDescription } from '../interfaces';
+import { FileDescription, FoolderDescription } from '../interfaces';
 import { FileStruct } from './FileStruct.class';
 
 const log = console.log;
@@ -62,7 +62,7 @@ export class CLI {
         this.projectName = arg;
         log(chalk.green(MESSAGES.GENERATE_PROJECT(this.projectName)));
         const struct = PROJECT_STRUCT(this.projectName);
-        this.buildStruct(struct, './result'); // Убрать result
+        this.createDir(struct, './result'); // Убрать result
     }
 
     private generateEntity() {
@@ -98,30 +98,35 @@ export class CLI {
     private createStruct() {
         const arg = this.checkArgv(4);
         const struct = new FileStruct(Entity.COMPONENT, arg);
-        this.buildStruct(struct, struct.filePath);
+        this.generateFile(struct, struct.filePath);
     }
 
-    private buildStruct(struct, dirPath) {
-        console.log(struct, dirPath);
-        const newPath = `${dirPath}/${struct.name}`;
-        try {
-            fs.mkdirSync(newPath);
-        } catch (e) {
-            log(chalk.red(ERR_MESSAGES.PROJECT_EXIST(this.projectName)));
-            process.exit(1);
-        }
+    private buildStruct(struct: FoolderDescription, dirPath: string) {
         struct.content.forEach(childStruct => {
             switch (childStruct.type) {
                 case FsTypes.FOOLDER: {
-                    this.buildStruct(childStruct, newPath);
+                    this.createDir(childStruct, dirPath);
                     break;
                 };
                 case FsTypes.FILE: {
-                    this.generateFile(childStruct, newPath);
+                    this.generateFile(childStruct, dirPath);
                     break;
                 }
             }
         });
+    }
+
+    private createDir(struct: FoolderDescription, dirPath) {
+        const newPath = `${dirPath}/${struct.name}`;
+        try {
+            fs.mkdirSync(newPath);
+            if (struct.content) {
+                this.buildStruct(struct, newPath);
+            }
+        } catch (e) {
+            log(chalk.red(ERR_MESSAGES.PROJECT_EXIST(this.projectName)));
+            process.exit(1);
+        }
     }
 
     private generateFile(fileDscr: FileDescription, currentPath: string) {

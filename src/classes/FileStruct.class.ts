@@ -1,4 +1,4 @@
-import { FileDescription } from '../interfaces/index';
+import { FileDescription, FoolderDescription } from '../interfaces/index';
 import { FsTypes, Entity } from '../enums';
 import { SERVICE, COMPONENT } from '../resources';
 import { TypescriptParser } from 'typescript-parser';

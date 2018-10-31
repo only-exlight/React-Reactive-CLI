@@ -52,7 +52,7 @@ export const PROJECT_STRUCT = (name: string): FoolderDescription => {
                 }, {
                     name: 'app.config',
                     ext: 'ts',
-                    template: TEMPLATES.TSCONFIG(),
+                    template: TEMPLATES.APP(),
                     type: FsTypes.FILE
                 }, {
                     name: 'routing.config',
