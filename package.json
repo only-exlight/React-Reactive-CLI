@@ -4,10 +4,10 @@
   "description": "CLI for React-Reactive framework",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently --kill-others \"tsc -w\" \"nodemon build/index.js\"",
-    "start-new": "concurrently --kill-others \"tsc -w\" \"nodemon build/index.js -new MyProject\"",
-    "start-create-c": "concurrently --kill-others \"tsc -w\" \"nodemon build/index.js -g c component\"",
-    "start-create-s": "concurrently --kill-others \"tsc -w\" \"nodemon build/index.js -g s service\"",
+    "start": "concurrently --kill-others \"tsc -w\" \"nodemon build/index.js -r source-map-support/register\"",
+    "start-new": "concurrently --kill-others \"tsc -w\" \"nodemon build/index.js -r source-map-support/register -new MyProject\"",
+    "start-create-c": "concurrently --kill-others \"tsc -w\" \"nodemon -r source-map-support/register build/index.js -g c component\"",
+    "start-create-s": "concurrently --kill-others \"tsc -w\" \"nodemon -r source-map-support/register build/index.js -g s service\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,6 +30,7 @@
     "@types/node": "^10.12.1",
     "concurrently": "^4.0.1",
     "nodemon": "^1.18.5",
+    "source-map-support": "^0.5.9",
     "tslint": "^5.11.0",
     "typescript": "^3.1.4"
   },

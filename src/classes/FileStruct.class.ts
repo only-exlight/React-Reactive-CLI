@@ -1,56 +1,46 @@
-import { FileDescription, FoolderDescription } from '../interfaces/index';
+import { IFoolderDescription } from '../interfaces/index';
 import { FsTypes, Entity } from '../enums';
-import { SERVICE, COMPONENT } from '../resources';
+import { SERVICE, COMPONENT, EMPTY } from '../resources';
 import { TypescriptParser } from 'typescript-parser';
 import * as EXT from '../const/ext';
 import * as fs from 'fs';
 
-export class FileStruct implements FileDescription {
-    public ext;
-    public type: FsTypes = FsTypes.FILE;
-    public template: string;
+export class FoolderDescription implements IFoolderDescription {
     public name: string;
-    public filePath: string;
-    private path: string;
+    public content: IFoolderDescription[] = [];
+    public type: FsTypes = FsTypes.FOOLDER;
+    // public filePath: string;
+    // private path: string;
 
     constructor(type: Entity, name: string) {
         this.name = name;
         switch (type) {
             case Entity.COMPONENT: {
-                this.ext = EXT.TSX;
-                this.template = COMPONENT(name);
-                this.path = `./result/MyProject/src/app/components`;
-                this.createFoolder();
+                this.content.push({
+                    name: this.name,
+                    type: FsTypes.FILE,
+                    ext: EXT.TSX,
+                    template: COMPONENT(this.name),
+                });
+                this.content.push({
+                    name: this.name,
+                    type: FsTypes.FILE,
+                    ext: EXT.SCSS,
+                    template: EMPTY
+                });
                 break;
             }
             case Entity.SERVICE: {
-                this.ext = EXT.TS;
-                this.template = SERVICE(name);
-                this.path =  `./result/MyProject/src/app/services`;
-                this.createFoolder();
+                this.content.push({
+                    name: this.name,
+                    type: FsTypes.FILE,
+                    ext: EXT.TS,
+                    template: SERVICE(this.name),
+                });
                 break;
             }
         }
         this.updateConfig();
-    }
-
-    private createFoolder() {
-        if (fs.existsSync(this.path)) {
-            try {
-                this.filePath = `${this.path}/${this.name}`;
-                fs.mkdirSync(this.filePath);
-            } catch (e) {
-                console.log(e);
-            }
-        } else {
-            try {
-                fs.mkdirSync(this.path);
-                this.filePath = `${this.path}/${this.name}`;
-                fs.mkdirSync(this.filePath);
-            } catch (e) {
-                console.log(e);
-            }
-        }
     }
 
     private updateConfig() {

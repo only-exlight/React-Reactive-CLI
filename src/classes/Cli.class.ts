@@ -6,8 +6,8 @@ import * as KEYS from '../const/keys';
 import chalk from 'chalk';
 import { PROJECT_STRUCT } from '../const/project-struct';
 import { FsTypes, Entity } from '../enums';
-import { FileDescription, FoolderDescription } from '../interfaces';
-import { FileStruct } from './FileStruct.class';
+import { IFileDescription, IFoolderDescription } from '../interfaces';
+import { FoolderDescription } from './FileStruct.class';
 
 const log = console.log;
 
@@ -97,11 +97,11 @@ export class CLI {
 
     private createStruct() {
         const arg = this.checkArgv(4);
-        const struct = new FileStruct(Entity.COMPONENT, arg);
+        const struct = new FoolderDescription(Entity.COMPONENT, arg);
         this.generateFile(struct, struct.filePath);
     }
 
-    private buildStruct(struct: FoolderDescription, dirPath: string) {
+    private buildStruct(struct: IFoolderDescription, dirPath: string) {
         struct.content.forEach(childStruct => {
             switch (childStruct.type) {
                 case FsTypes.FOOLDER: {
@@ -129,7 +129,7 @@ export class CLI {
         }
     }
 
-    private generateFile(fileDscr: FileDescription, currentPath: string) {
+    private generateFile(fileDscr: IFileDescription, currentPath: string) {
         const { ext, name, template } = fileDscr;
         const filePath = path.join(currentPath, `${name}.${ext}`);
         try {
