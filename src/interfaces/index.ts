@@ -1,4 +1,4 @@
-import { FsTypes } from '../enums';
+import { FsTypes, MessagesType } from '../enums';
 
 export interface IFileDescription {
     type: FsTypes;
@@ -12,3 +12,9 @@ export interface IFoolderDescription extends IFileDescription {
     name: string;
     content?: IFoolderDescription[];
 };
+
+
+export interface IMessage {
+    type: MessagesType;
+    msg: string;
+}

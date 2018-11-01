@@ -36,6 +36,7 @@
   "dependencies": {
     "camelcase": "^5.0.0",
     "chalk": "^2.4.1",
+    "rxjs": "^6.3.3",
     "typescript-parser": "^2.6.1"
   }
 }
