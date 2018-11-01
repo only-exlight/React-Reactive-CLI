@@ -23,7 +23,7 @@ export class CLI {
         switch (process.argv[2]) {
             case undefined: {
                 log(chalk.red(ERR_MESSAGES.HAVE_NO_ARGUMENT));
-                process.exit(1);
+                process.exit(0);
             }
             case KEYS.NEW_PROGECT: {
                 this.generateNewProject();
@@ -43,7 +43,7 @@ export class CLI {
             }
             default: {
                 log(ERR_MESSAGES.ARGUMENT_NO_CORRECT(process.argv[2]));
-                process.exit(1);
+                process.exit(0);
             }
         }
     }
@@ -53,7 +53,7 @@ export class CLI {
             return process.argv[index];
         } else {
             log(chalk.red(ERR_MESSAGES.HAVE_NO_ARGUMENT));
-            process.exit(1);
+            process.exit(0);
         }
     }
 
@@ -62,7 +62,7 @@ export class CLI {
         this.projectName = arg;
         log(chalk.green(MESSAGES.GENERATE_PROJECT(this.projectName)));
         const struct = PROJECT_STRUCT(this.projectName);
-        this.createDir(struct, './result'); // Убрать result
+        this.createDir(struct, './');
     }
 
     private generateEntity() {
@@ -70,7 +70,7 @@ export class CLI {
         switch (arg) {
             case undefined: {
                 log(chalk.red(ERR_MESSAGES.HAVE_NO_ARGUMENT));
-                process.exit(1);
+                process.exit(0);
             }
             case KEYS.COMPONENT: {
                 this.createStruct();
@@ -90,7 +90,7 @@ export class CLI {
             }
             default: {
                 log(ERR_MESSAGES.ARGUMENT_NO_CORRECT(process.argv[3]));
-                process.exit(1);
+                process.exit(0);
             }
         }
     }
@@ -98,7 +98,7 @@ export class CLI {
     private createStruct() {
         const arg = this.checkArgv(4);
         const struct = new FoolderDescription(Entity.COMPONENT, arg);
-        this.generateFile(struct, struct.filePath);
+        this.createDir(struct, struct.path);
     }
 
     private buildStruct(struct: IFoolderDescription, dirPath: string) {
@@ -116,7 +116,7 @@ export class CLI {
         });
     }
 
-    private createDir(struct: FoolderDescription, dirPath) {
+    private createDir(struct: IFoolderDescription, dirPath) {
         const newPath = `${dirPath}/${struct.name}`;
         try {
             fs.mkdirSync(newPath);
@@ -125,7 +125,7 @@ export class CLI {
             }
         } catch (e) {
             log(chalk.red(ERR_MESSAGES.PROJECT_EXIST(this.projectName)));
-            process.exit(1);
+            process.exit(0);
         }
     }
 

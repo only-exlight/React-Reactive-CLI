@@ -1,18 +1,22 @@
-export const COMPONENT = (componentName: string) => `
+import * as camelCase from 'camelcase';
+
+export const COMPONENT = (componentName: string) => {
+    const cc = camelCase(componentName, { pascalCase: true });
+    return `
 import * as React from 'react';
 import { InjectServices } from 'react-reactive/@core';
 
-interface I${componentName}ComponentState { };
+interface I${cc}ComponentState { };
 
-interface I${componentName}ComponentProps { };
+interface I${cc}ComponentProps { };
 
 @InjectServices({
-    target: ${componentName}Component,
+    target: ${cc}Component,
     services: []
 })
 
-export class ${componentName}Component extends React.Component<I${componentName}ComponentProps> {
-    public state: I${componentName}ComponentState;
+export class ${cc}Component extends React.Component<I${cc}ComponentProps> {
+    public state: I${cc}ComponentState;
     constructor(props: any) {
         super(props);
         this.state = { };
@@ -24,8 +28,8 @@ export class ${componentName}Component extends React.Component<I${componentName}
 
     public render() {
         return (
-            <div>${componentName} component</div>
+            <div>${cc} component</div>
         );
     }
 }
-`;
+`};

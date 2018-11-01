@@ -1,8 +1,8 @@
-import { FoolderDescription } from '../interfaces';
+import { IFoolderDescription } from '../interfaces';
 import { FsTypes } from '../enums';
 import * as TEMPLATES from '../resources';
 
-export const PROJECT_STRUCT = (name: string): FoolderDescription => {
+export const PROJECT_STRUCT = (name: string): IFoolderDescription => {
     return {
         name: name,
         type: FsTypes.FOOLDER,
@@ -16,7 +16,7 @@ export const PROJECT_STRUCT = (name: string): FoolderDescription => {
                     name: 'components',
                     type: FsTypes.FOOLDER,
                     content: [{
-                        name: 'test',
+                        name: 'test-component',
                         type: FsTypes.FOOLDER,
                         content: [{
                             name: 'test.component',

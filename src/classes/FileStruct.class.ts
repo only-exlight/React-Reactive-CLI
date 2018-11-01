@@ -4,13 +4,13 @@ import { SERVICE, COMPONENT, EMPTY } from '../resources';
 import { TypescriptParser } from 'typescript-parser';
 import * as EXT from '../const/ext';
 import * as fs from 'fs';
+import * as PATHS from '../const/path.const';
 
 export class FoolderDescription implements IFoolderDescription {
     public name: string;
     public content: IFoolderDescription[] = [];
     public type: FsTypes = FsTypes.FOOLDER;
-    // public filePath: string;
-    // private path: string;
+    public path: string;
 
     constructor(type: Entity, name: string) {
         this.name = name;
@@ -28,6 +28,7 @@ export class FoolderDescription implements IFoolderDescription {
                     ext: EXT.SCSS,
                     template: EMPTY
                 });
+                this.path = PATHS.COMPONENTS_PATH;
                 break;
             }
             case Entity.SERVICE: {
@@ -37,6 +38,7 @@ export class FoolderDescription implements IFoolderDescription {
                     ext: EXT.TS,
                     template: SERVICE(this.name),
                 });
+                this.path = PATHS.SERVICES_PATH;
                 break;
             }
         }
