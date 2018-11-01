@@ -2,17 +2,14 @@ import * as MESSAGES from '../const/messages';
 import * as ERR_MESSAGES from '../const/err-messages';
 import * as fs from 'fs';
 import * as path from 'path';
-import { FsTypes } from '../enums';
-import chalk from 'chalk';
-import { IFileDescription, IFoolderDescription } from '../interfaces';
+import { FsTypes, MessagesType } from '../enums';
+import { IFileDescription, IFoolderDescription, IMessage } from '../interfaces';
 import { Subject, Observable } from 'rxjs';
 
-const log = console.log;
-
 export class FileStructMaker {
-    private messages$ = new Subject<string>();
+    private messages$ = new Subject<IMessage>();
 
-    get fileMakerMessages$(): Observable<string> {
+    get fileMakerMessages$(): Observable<IMessage> {
         return this.messages$.asObservable();
     }
 
@@ -39,8 +36,10 @@ export class FileStructMaker {
                 this.buildStruct(struct, newPath);
             }
         } catch (e) {
-            log(chalk.red(ERR_MESSAGES.PROJECT_EXIST(this.projectName)));
-            process.exit(0);
+            this.messages$.next({
+                type: MessagesType.ERR,
+                msg: ERR_MESSAGES.CREATE_FOOLDER_ERR(struct.name)
+            });
         }
     }
 
@@ -48,11 +47,16 @@ export class FileStructMaker {
         const { ext, name, template } = fileDscr;
         const filePath = path.join(currentPath, `${name}.${ext}`);
         try {
-            chalk.greenBright
-            log(chalk.green(MESSAGES.CREATE_FILE(`${name}.${ext}`)));
+            this.messages$.next({
+                type: MessagesType.SUCCESS,
+                msg: MESSAGES.CREATE_FILE(`${name}.${ext}`)
+            });
             fs.writeFileSync(filePath, template);
         } catch (e) {
-            log(chalk.red(ERR_MESSAGES.CREATE_FILE_ERR(`${name}.${ext}`)));
+            this.messages$.next({
+                type: MessagesType.ERR,
+                msg: ERR_MESSAGES.CREATE_FILE_ERR(`${name}.${ext}`)
+            });
         }
     }
 }

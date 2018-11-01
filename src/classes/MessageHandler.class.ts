@@ -7,14 +7,15 @@ import { Observable } from 'rxjs';
 export class MessageHandler {
     private log = console.log;
 
-    constructor(obsrvbles: Observable<string>[]) {
-        obsrvbles.forEach(obsrv => obsrv.subscribe())
+    constructor(obsrvbles: Observable<IMessage>[]) {
+        obsrvbles.forEach(obsrv => obsrv.subscribe(msg => this.logMsg(msg)));
     }
 
     public logMsg(msg: IMessage) {
         switch (msg.type) {
             case MessagesType.ERR: {
-                this.log(chalk.green(msg.msg));
+                this.log(chalk.red(msg.msg));
+                process.exit(0);
                 break;
             }
             case MessagesType.WARN: {
