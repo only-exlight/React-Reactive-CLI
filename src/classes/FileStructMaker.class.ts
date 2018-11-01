@@ -1,10 +1,11 @@
-import * as MESSAGES from '../const/messages';
-import * as ERR_MESSAGES from '../const/err-messages';
 import * as fs from 'fs';
+import * as kebabCase from 'kebab-case';
 import * as path from 'path';
+import { Observable, Subject } from 'rxjs';
+import * as ERR_MESSAGES from '../const/err-messages';
+import * as MESSAGES from '../const/messages';
 import { FsTypes, MessagesType } from '../enums';
 import { IFileDescription, IFoolderDescription, IMessage } from '../interfaces';
-import { Subject, Observable } from 'rxjs';
 
 export class FileStructMaker {
     private messages$ = new Subject<IMessage>();

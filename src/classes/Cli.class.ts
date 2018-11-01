@@ -5,6 +5,8 @@ import { FoolderDescription } from './FileStruct.class';
 import { FileStructMaker } from './FileStructMaker.class';
 import { MessageHandler } from './MessageHandler.class';
 import { ArgumentParser } from './ArgumentParser.class';
+// import * as kebabCase from 'kebab-case';
+// import * as camelCase from 'camelcase';
 
 export class CLI {
     private projectName: string;
@@ -17,6 +19,7 @@ export class CLI {
             type: MessagesType.SUCCESS,
             msg: MESSAGES.HELLO
         });
+        // console.log(kebabCase(camelCase('webpack.config', { pascalCase: true })).slice(1).replce);
         this.argParser.generateProject$.subscribe(() => this.generateNewProject());
         this.argParser.generateFile$.subscribe(() => this.createStruct());
         this.argParser.argParse();
