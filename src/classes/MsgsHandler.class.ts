@@ -2,14 +2,9 @@
 import chalk from 'chalk';
 import { MessagesType } from '../enums';
 import { IMessage } from '../interfaces';
-import { Observable } from 'rxjs';
 
-export class MessageHandler {
+export class MsgsHandler {
     private log = console.log;
-
-    constructor(obsrvbles: Observable<IMessage>[]) {
-        obsrvbles.forEach(obsrv => obsrv.subscribe(msg => this.logMsg(msg)));
-    }
 
     public logMsg(msg: IMessage) {
         switch (msg.type) {

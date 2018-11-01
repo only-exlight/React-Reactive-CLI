@@ -6,18 +6,18 @@ import { MessagesType } from '../enums';
 
 export class ArgumentParser {
     private messages$ = new Subject<IMessage>();
-    private generateProject = new Subject<null>();
-    private generateFile = new Subject<null>();
+    private generateProject = new Subject<string>();
+    private generateFile = new Subject<string>();
 
     get parserMessages$(): Observable<IMessage> {
         return this.messages$.asObservable();
     }
 
-    get generateProject$(): Observable<null> {
+    get generateProject$(): Observable<string> {
         return this.generateProject.asObservable();
     }
 
-    get generateFile$(): Observable<null> {
+    get generateFile$(): Observable<string> {
         return this.generateFile.asObservable();
     }
 
@@ -33,6 +33,7 @@ export class ArgumentParser {
     }
 
     public argParse() {
+        const name = this.checkArgv(3);
         switch (process.argv[2]) {
             case undefined: {
                 this.messages$.next({
@@ -41,11 +42,11 @@ export class ArgumentParser {
                 });
             }
             case KEYS.NEW_PROGECT: {
-                this.generateProject.next();
+                this.generateProject.next(name);
                 break;
             };
             case KEYS.NEW_PROGECT_SHORT: {
-                this.generateProject.next();
+                this.generateProject.next(name);
                 break;
             }
             case KEYS.GENERATE: {
@@ -67,6 +68,7 @@ export class ArgumentParser {
 
     private generateEntity() {
         const arg = this.checkArgv(3);
+        const name = this.checkArgv(4);
         switch (arg) {
             case undefined: {
                 this.messages$.next({
@@ -75,19 +77,20 @@ export class ArgumentParser {
                 });
             }
             case KEYS.COMPONENT: {
-                this.generateFile.next();
+                
+                this.generateFile.next(name);
                 break;
             }
             case KEYS.COMPONENT_SHORT: {
-                this.generateFile.next();
+                this.generateFile.next(name);
                 break;
             }
             case KEYS.SERVICE: {
-                this.generateFile.next();
+                this.generateFile.next(name);
                 break;
             }
             case KEYS.SERVICE_SHORT: {
-                this.generateFile.next();
+                this.generateFile.next(name);
                 break;
             }
             default: {

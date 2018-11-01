@@ -1,43 +1,26 @@
 import * as MESSAGES from '../const/messages';
-import { PROJECT_STRUCT } from '../const/project-struct';
-import { Entity, MessagesType } from '../enums';
-import { FoolderDescription } from './FileStruct.class';
-import { FileStructMaker } from './FileStructMaker.class';
-import { MessageHandler } from './MessageHandler.class';
+import { MessagesType } from '../enums';
+import { ProjectBuilder } from './ProjectBuilder.class';
+import { MsgsHandler } from './MsgsHandler.class';
 import { ArgumentParser } from './ArgumentParser.class';
 // import * as kebabCase from 'kebab-case';
 // import * as camelCase from 'camelcase';
 
 export class CLI {
-    private projectName: string;
-    private fileStructMaker = new FileStructMaker();
-    private msgHandler = new MessageHandler([this.fileStructMaker.fileMakerMessages$]);
+    private projectBuilder= new ProjectBuilder();
+    private msgsHandler = new MsgsHandler();
     private argParser = new ArgumentParser();
 
     public main() {
-        this.msgHandler.logMsg({
+        this.msgsHandler.logMsg({
             type: MessagesType.SUCCESS,
             msg: MESSAGES.HELLO
         });
         // console.log(kebabCase(camelCase('webpack.config', { pascalCase: true })).slice(1).replce);
-        this.argParser.generateProject$.subscribe(() => this.generateNewProject());
-        this.argParser.generateFile$.subscribe(() => this.createStruct());
+        this.argParser.generateProject$.subscribe(name => this.projectBuilder.buildNewProject(name));
+        this.argParser.generateFile$.subscribe(name => this.projectBuilder.buildNewEntity(name));
+        this.argParser.parserMessages$.subscribe(msg => this.msgsHandler.logMsg(msg));
+        this.projectBuilder.fileMakerMessages$.subscribe(msg => this.msgsHandler.logMsg(msg));
         this.argParser.argParse();
-    }
-
-    private generateNewProject() {
-        this.projectName = this.argParser.checkArgv(3);
-        this.msgHandler.logMsg({
-            type: MessagesType.SUCCESS,
-            msg: MESSAGES.GENERATE_PROJECT(this.projectName)
-        });
-        const struct = PROJECT_STRUCT(this.projectName);
-        this.fileStructMaker.createDir(struct, './');
-    }
-
-    private createStruct() {
-        const arg = this.argParser.checkArgv(4);
-        const struct = new FoolderDescription(Entity.COMPONENT, arg);
-        this.fileStructMaker.createDir(struct, struct.path);
     }
 }

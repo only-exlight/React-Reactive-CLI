@@ -1,20 +1,35 @@
 import * as fs from 'fs';
-import * as kebabCase from 'kebab-case';
 import * as path from 'path';
 import { Observable, Subject } from 'rxjs';
 import * as ERR_MESSAGES from '../const/err-messages';
 import * as MESSAGES from '../const/messages';
-import { FsTypes, MessagesType } from '../enums';
+import { PROJECT_STRUCT } from '../const/project-struct';
+import { Entity, FsTypes, MessagesType } from '../enums';
 import { IFileDescription, IFoolderDescription, IMessage } from '../interfaces';
+import { FoolderDescription } from './FileStruct.class';
 
-export class FileStructMaker {
+export class ProjectBuilder {
     private messages$ = new Subject<IMessage>();
 
     get fileMakerMessages$(): Observable<IMessage> {
         return this.messages$.asObservable();
     }
 
-    public buildStruct(struct: IFoolderDescription, dirPath: string) {
+    public buildNewProject(name: string) {
+        this.messages$.next({
+            type: MessagesType.SUCCESS,
+            msg: MESSAGES.GENERATE_PROJECT(name)
+        });
+        const struct = PROJECT_STRUCT(name);
+        this.createDir(struct, './');
+    }
+
+    public buildNewEntity(name: string) {
+        const struct = new FoolderDescription(Entity.COMPONENT, name);
+        this.createDir(struct, struct.path);
+    }
+
+    private buildStruct(struct: IFoolderDescription, dirPath: string) {
         struct.content.forEach(childStruct => {
             switch (childStruct.type) {
                 case FsTypes.FOOLDER: {
