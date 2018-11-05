@@ -7,9 +7,15 @@ import { PROJECT_STRUCT } from '../const/project-struct';
 import { Entity, FsTypes, MessagesType } from '../enums';
 import { IFileDescription, IFoolderDescription, IMessage } from '../interfaces';
 import { FoolderDescription } from './FileStruct.class';
+import * as kebabCase from 'kebab-case';
+import * as camelCase from 'camelcase';
 
 export class ProjectBuilder {
     private messages$ = new Subject<IMessage>();
+
+    static createName(name: string) {
+        return kebabCase(camelCase(name, { pascalCase: true })).slice(1);
+    }
 
     get fileMakerMessages$(): Observable<IMessage> {
         return this.messages$.asObservable();
@@ -25,23 +31,10 @@ export class ProjectBuilder {
     }
 
     public buildNewEntity(name: string) {
-        const struct = new FoolderDescription(Entity.COMPONENT, name);
+        const kebabName = ProjectBuilder.createName(name);
+        const struct = new FoolderDescription(Entity.COMPONENT, kebabName);
+        console.log(struct);
         this.createDir(struct, struct.path);
-    }
-
-    private buildStruct(struct: IFoolderDescription, dirPath: string) {
-        struct.content.forEach(childStruct => {
-            switch (childStruct.type) {
-                case FsTypes.FOOLDER: {
-                    this.createDir(childStruct, dirPath);
-                    break;
-                };
-                case FsTypes.FILE: {
-                    this.generateFile(childStruct, dirPath);
-                    break;
-                }
-            }
-        });
     }
 
     public createDir(struct: IFoolderDescription, dirPath) {
@@ -74,5 +67,20 @@ export class ProjectBuilder {
                 msg: ERR_MESSAGES.CREATE_FILE_ERR(`${name}.${ext}`)
             });
         }
+    }
+
+    private buildStruct(struct: IFoolderDescription, dirPath: string) {
+        struct.content.forEach(childStruct => {
+            switch (childStruct.type) {
+                case FsTypes.FOOLDER: {
+                    this.createDir(childStruct, dirPath);
+                    break;
+                };
+                case FsTypes.FILE: {
+                    this.generateFile(childStruct, dirPath);
+                    break;
+                }
+            }
+        });
     }
 }

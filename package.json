@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently --kill-others \"tsc -w\" \"nodemon -r source-map-support/register build/index.js \"",
-    "start-new": "concurrently --kill-others \"tsc -w\" \"nodemon -r source-map-support/register build/index.js  -new MyProject\"",
-    "start-create-c": "concurrently --kill-others \"tsc -w\" \"nodemon -r source-map-support/register build/index.js -g c component\"",
+    "start-new": "concurrently --kill-others \"tsc -w\" \"nodemon -r source-map-support/register build/index.js -new MyProject\"",
+    "start-create-c": "concurrently --kill-others \"tsc -w\" \"nodemon -r source-map-support/register build/index.js -g c MyComponent\"",
     "start-create-s": "concurrently --kill-others \"tsc -w\" \"nodemon -r source-map-support/register build/index.js -g s service\""
   },
   "repository": {

@@ -77,7 +77,6 @@ export class ArgumentParser {
                 });
             }
             case KEYS.COMPONENT: {
-                
                 this.generateFile.next(name);
                 break;
             }

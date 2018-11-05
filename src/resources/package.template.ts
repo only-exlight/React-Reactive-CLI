@@ -1,13 +1,14 @@
-export const PACKAGE = (packageName:string) => `{
-  "name": "${packageName}",
+import { ProjectBuilder } from '../classes/ProjectBuilder.class';
+
+export const PACKAGE = (packageName: string) => `{
+  "name": "${ProjectBuilder.createName(packageName)}",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack/webpack.config.js --open --mode development ",
     "build": "webpack --config webpack/webpack.config.js --mode production",
-    "build-dev": "webpack --config webpack/webpack.config.js --mode development",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build-dev": "webpack --config webpack/webpack.config.js --mode development"
   },
   "author": "",
   "license": "ISC",
